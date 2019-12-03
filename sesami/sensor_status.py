@@ -50,3 +50,5 @@ if __name__ == '__main__':
 				tar = args[i]
 				ans = get_status(tar, path)
 				print tar , ans
+
+
