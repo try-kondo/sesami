@@ -15,3 +15,18 @@ sesamiWebAPIを使用し、カギをロックする
 　－１．有効／無効
 　－２．タイマー値（ONになってから何secでカギを閉めるか）
 ３．タイマー値分ディレイした後、カギを閉める
+
+【構成】
+■PHP
+    ・sesami.php
+        Webブラウザ上でロック・アンロック及びオプションの変更が可能
+■Python
+    ●sesamiWebAPI
+        ・lock.py           ：sesamiにロック指示を送る
+        ・unlock.py         ：sesamiにアンロックを送る
+        ・status.py         ：sesamiのステータスを確認
+    ●ドアセンサー
+        ・sensor_option.py  ：ドアセンサーのオプションを変更できる
+        ・sensor_status.py  ：ドアセンサーのオプションを確認できる
+    ●GPIO
+        ・sesami_control.py ：リードスイッチのON/OFFを検知し、ロック/アンロックを行う
