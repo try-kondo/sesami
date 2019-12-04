@@ -16,21 +16,29 @@ if __name__ == '__main__':
     path = dir_path.etc_path()
 
     with open(path) as f:
-        list = f.readlines()
+        opt_list = f.readlines()
 
-    length = len(list)
+    length = len(opt_list)
 
     ser_enable = '[Enable]='
     ser_timer = '[Timer]='
     for i in range(length):
-        if len(i).find(ser_enable):
-            opt_enable = list(i)[:len(list(i)-len(ser_enable))]
-        elif len(i).find(ser_timer):
-            opt_timer = list(i)[:len(list(i)-len(ser_timer))]
+        if opt_list[i].find(ser_enable) != -1:
+            tmp = opt_list[i]
+            tmp = tmp.rstrip()
+            opt_enable = tmp[len(ser_enable)-len(opt_list[i]):]
+        elif opt_list[i].find(ser_timer) != -1:
+            tmp = opt_list[i]
+            tmp = tmp.rstrip()
+            opt_timer = tmp[len(ser_timer)-len(opt_list[i]):]
 
-    if opt_enable == 'Enable':
+
+    print opt_enable
+    print opt_timer
+
+    if opt_enable == 'True':
         time.sleep(opt_timer)
-        res = subprocess.call('python lock.py')
+        res = subprocess.call('python status.py')
 
     else:
         print 'Sensor False'
