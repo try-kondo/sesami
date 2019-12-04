@@ -1,11 +1,11 @@
 def etc_path():
-    path = '/home/sesami/etc/door_sensor'
+    path = '/home/piuser/sesami/python/etc/door_sensor'
 
     return path
 
 
 def api_path():
-    path_2 = '/home/sesami/etc/sesami_webapi'
+    path_2 = '/home/piuser/sesami/python/etc/sesami_webapi'
     
     return path_2
 
