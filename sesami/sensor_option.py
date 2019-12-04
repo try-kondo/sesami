@@ -20,12 +20,6 @@ if __name__ == '__main__':
 
         for i in range(length):
             index = list[i].find(tar)
-            print '--- For i ---'
-            print 'i=',i
-            print 'length=',length
-            print 'list[i]=',list[i]
-            print 'index=',index
-            print 'tar=',tar
             if index != -1:
                 tar_opt = list[i]
                 tar_opt_len = len(tar_opt)
@@ -34,14 +28,11 @@ if __name__ == '__main__':
 
                 with open(path, 'w', encoding='utf-8') as f_w:
                     for r in list:
-                        print '--- For r ---'
                         if len(r) != 1:
                             # r = r + '\n'
                             r = r.rstrip()
                             r = r + '\n'
-                            print 'Write=',r
                             f_w.write(r)
-                print 'Write:',args[1],'=',args[2]
                 break
             else:
                 print 'index error'
