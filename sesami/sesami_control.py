@@ -1,46 +1,52 @@
+# Sesami WebAPi
+
 from io import open
-import sys
-import time
-import subprocess
+from pysesame2 import get_sesames
 
 import dir_path
-import check_gpio_bcm
 
 
-if __name__ == '__main__':
-
-    i_bcm = check_gpio_bcm.gpio_input_bcm(18)
-    if i_bcm != 1:
-        sys.exit()
-
-    path = dir_path.etc_path()
-
+def get_webapi():
+    path = dir_path.api_path()
     with open(path) as f:
-        opt_list = f.readlines()
+	    s = f.read()
 
-    length = len(opt_list)
-
-    ser_enable = '[Enable]='
-    ser_timer = '[Timer]='
-    for i in range(length):
-        if opt_list[i].find(ser_enable) != -1:
-            tmp = opt_list[i]
-            tmp = tmp.rstrip()
-            opt_enable = tmp[len(ser_enable)-len(opt_list[i]):]
-        elif opt_list[i].find(ser_timer) != -1:
-            tmp = opt_list[i]
-            tmp = tmp.rstrip()
-            opt_timer = tmp[len(ser_timer)-len(opt_list[i]):]
+    return s.rstrip()
 
 
-    print opt_enable
-    print opt_timer
+def sesami_status():
+    webapi = get_webapi()
+    sesames = get_sesames(webapi)
+    sesame = sesames[0]
 
-    if opt_enable == 'True':
-        time.sleep(opt_timer)
-        res = subprocess.call('python status.py')
+    if sesame.get_status()['locked'] == True:
+        lock = "Lock"
+    elif sesame.get_status()['locked'] == False:
+        lock = "Unlock"
 
-    else:
-        print 'Sensor False'
-        sys.exit
+    print 'Battery    : ', sesame.get_status()['battery']
+    print 'Locked     : ', lock
+    print 'Responsive : ', sesame.get_status()['responsive']
+
+
+def sesami_lock():
+    webapi = get_webapi()
+    sesames = get_sesames(webapi)
+    sesame = sesames[0]
+
+    if sesame.get_status()['responsive'] == True:
+        if sesame.get_status()['locked'] == False:
+            sesame.lock()
+            print("Sesami Lock Complete!!")
+
+
+def sesami_unlock():
+    webapi = get_webapi()
+    sesames = get_sesames(webapi)
+    sesame = sesames[0]
+
+    if sesame.get_status()['responsive'] == True:
+        if sesame.get_status()['locked'] == True:
+            sesame.unlock()
+            print("Sesami Unlock Complete!!")
 

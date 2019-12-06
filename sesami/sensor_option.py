@@ -34,7 +34,5 @@ if __name__ == '__main__':
                             r = r + '\n'
                             f_w.write(r)
                 break
-            else:
-                print 'index error'
     else:
         print 'args not found'
