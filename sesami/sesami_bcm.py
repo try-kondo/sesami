@@ -11,7 +11,6 @@ import sesami_control
 if __name__ == '__main__':
 
     i_bcm = check_gpio_bcm.gpio_input_bcm(18)
-    i_bcm = 1
     if i_bcm != 1:
         sys.exit()
 
@@ -46,7 +45,7 @@ if __name__ == '__main__':
         print datetime.datetime.now()
         time.sleep(int(opt_timer))
         print datetime.datetime.now()
-        sesami_control.sesami_status()
+        sesami_control.sesami_lock()
 
     else:
         print 'Sensor False'

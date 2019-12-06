@@ -1,38 +1,41 @@
-# Door Sensor
-# Option Change
-
 from io import open
-import sys
 import dir_path
 
-if __name__ == '__main__':
-    args = sys.argv
+def read_option(target):
+
     path = dir_path.etc_path()
+    with open(path) as f:
+        opt_list = f.readlines()
 
-    if 3 == len(args):
+    length = len(opt_list)
 
-        with open(path) as f:
-            list = f.readlines()
+    all_flag = 0
+    if target == 'all':
+        all_flag = 1
 
-        length = len(list)
-
-        tar = '[' + args[1] + ']='
-
-        for i in range(length):
-            index = list[i].find(tar)
-            if index != -1:
-                tar_opt = list[i]
-                tar_opt_len = len(tar_opt)
-                tar_tmp = tar_opt[:len(tar) - tar_opt_len]
-                list[i] = tar_tmp + args[2]
-
-                with open(path, 'w', encoding='utf-8') as f_w:
-                    for r in list:
-                        if len(r) != 1:
-                            # r = r + '\n'
-                            r = r.rstrip()
-                            r = r + '\n'
-                            f_w.write(r)
+    for i in range(length)
+        reslut = reslut + opt_list[i].replace('[', "").replace(']', "")
+        if all_flag != 1:
+            if result.find(target) != -1:
                 break
-    else:
-        print 'args not found'
+            else:
+                result = ''
+    
+    return result
+
+
+def write_option(tar_name, tar_value):
+
+    path = dir_path.etc_path()
+    with open(path) as f:
+        opt_list = f.readlines()
+
+    length = len(opt_list)
+
+    for i in range(length)
+        if opt_list[i].find(tar_name) != -1:
+            opt_list[i]
+    
+
+    return result
+
